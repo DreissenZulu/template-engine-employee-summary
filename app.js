@@ -151,7 +151,7 @@ function buildHtmlCard(memberType, name, id, email, propertyValue) {
     let data = fs.readFileSync(`./templates/${memberType}.html`, 'utf8')
     data = data.replace("nameHere", name);
     data = data.replace("idHere", `ID: ${id}`);
-    data = data.replace("emailHere", `Email: ${email}`);
+    data = data.replace("emailHere", `Email: <a href="mailto:${email}">${email}</a>`);
     data = data.replace("propertyHere", propertyValue);
     fs.appendFileSync("./output/teamPage.html", data, err => { if (err) throw err; })
     console.log("Card appended");
