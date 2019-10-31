@@ -14,4 +14,11 @@ Building the class constructors provided a challenge in writing the syntax prope
 
 The most significant challenge was writing the information received in the command line to the HTML templates. My plan was to read the main page template and then write it to a new file in the output, then append user cards to the html based on their roles, and finally append the closing tags necessary to render the webpage properly. I achieved part 1 and part 3 using writefilesync and appendfilesync to have these operations occur synchronously. To execute part 2 I used a for loop which identified the current employee's role, after which the appropriate template would be read and the necessary information applied before appending it to the half-generated page in the output.
 
-The problem with this approach is that replacing content inside an HTML page via Node is comparatively much more difficult than using front end JavaScript. For instance, DOM traversal is unhandled in the Node environment. It turned out that I assumed the data passed in through readFile was a string, thus the replace method did not apply correctly. Debugging revealed simple mistakes which when rectified allowed the final output page to render properly.
+The problem with this approach is that replacing content inside an HTML page via Node is more difficult than using front end JavaScript. For instance, DOM traversal is unhandled in the Node environment. It turned out that I assumed the data passed in through readFile was a string, thus the replace method did not apply correctly. Debugging revealed simple mistakes which when rectified allowed the final output page to render properly.
+
+## Sample Usage
+![](node_example.gif)
+## Test Suite
+![](cmd_test.png)
+## Sample Output
+![](html_generated.png)
