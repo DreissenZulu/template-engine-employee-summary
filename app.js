@@ -2,6 +2,7 @@ const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 const inquire = require("inquirer");
+const fs = require("fs");
 
 var teamList = [];
 const managerQuestions = [
@@ -10,8 +11,8 @@ const managerQuestions = [
         name: "name",
         message: "Enter manager name:",
         validate: async (input) => {
-            if (input == "") {
-                return "Please enter a name.";
+            if (input == "" || /\s/.test(input)) {
+                return "Please enter first or last name.";
             }
             return true;
         }
@@ -105,7 +106,7 @@ const employeeQuestions = [
     }
 ]
 
-function buildTeam() {
+function buildTeamList() {
     inquire.prompt(employeeQuestions).then(employeeInfo => {
         if (employeeInfo.role == "engineer") {
             var newMember = new Engineer(employeeInfo.name, teamList.length+1, employeeInfo.email, employeeInfo.github);
@@ -114,11 +115,16 @@ function buildTeam() {
         }
         teamList.push(newMember);
         if (employeeInfo.addAnother === "Yes") {
-            buildTeam();
+            console.log(" ");
+            buildTeamList();
         } else {
-            console.log(teamList);
+            buildHtmlPage();
         }
     })
+}
+
+function buildHtmlPage() {
+
 }
 
 function init() {
@@ -126,7 +132,7 @@ function init() {
         let teamManager = new Manager(managerInfo.name, 1, managerInfo.email, managerInfo.officeNum);
         teamList.push(teamManager);
         console.log(" ");
-        buildTeam();
+        buildTeamList();
     })
 }
 
