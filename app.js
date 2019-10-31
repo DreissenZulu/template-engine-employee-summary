@@ -135,14 +135,15 @@ function buildHtmlPage() {
         if (member.getRole() == "Manager") {
             buildHtmlCard("manager", member.getName(), member.getId(), member.getEmail(), member.getOfficeNumber());
         } else if (member.getRole() == "Engineer") {
-            buildHtmlCard("engineer", member.getName(), member.getId(), member.getEmail(), member.getOfficeNumber());
+            buildHtmlCard("engineer", member.getName(), member.getId(), member.getEmail(), member.getGithub());
         } else if (member.getRole() == "Intern") {
-            buildHtmlCard("intern", member.getName(), member.getId(), member.getEmail(), member.getOfficeNumber());
+            buildHtmlCard("intern", member.getName(), member.getId(), member.getEmail(), member.getSchool());
         }
     }
-    // fs.appendFileSync("./output/teamPage.html", "</div></main></body></html>", function (err) {
-    //     if (err) throw err;
-    // });
+    fs.appendFileSync("./output/teamPage.html", "</div></main></body></html>", function (err) {
+        if (err) throw err;
+    });
+    console.log("Page tags closed! Operation completed.")
 
 }
 
