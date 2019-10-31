@@ -109,9 +109,9 @@ const employeeQuestions = [
 function buildTeamList() {
     inquire.prompt(employeeQuestions).then(employeeInfo => {
         if (employeeInfo.role == "engineer") {
-            var newMember = new Engineer(employeeInfo.name, teamList.length+1, employeeInfo.email, employeeInfo.github);
+            var newMember = new Engineer(employeeInfo.name, teamList.length + 1, employeeInfo.email, employeeInfo.github);
         } else {
-            var newMember = new Intern(employeeInfo.name, teamList.length+1, employeeInfo.email, employeeInfo.school);
+            var newMember = new Intern(employeeInfo.name, teamList.length + 1, employeeInfo.email, employeeInfo.school);
         }
         teamList.push(newMember);
         if (employeeInfo.addAnother === "Yes") {
@@ -124,7 +124,24 @@ function buildTeamList() {
 }
 
 function buildHtmlPage() {
-
+    fs.readFile("./templates/main.html", function (err, data) {
+        fs.writeFileSync("./output/teamPage.html", data, function (err) {
+            if (err) throw err;
+            console.log("Base page generated!");
+        })
+        fs.appendFileSync("./output/teamPage.html", "</div></main></body></html>", function (err) {
+            if (err) throw err;
+            console.log("Page tags closed!");
+        })
+        for (member of teamList) {
+            console.log(member.getRole());
+            // if (member.getRole() == "Manager") {
+            //     return;
+            // }
+        }
+        if (err) throw err;
+    }
+    )
 }
 
 function init() {
