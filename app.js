@@ -124,24 +124,36 @@ function buildTeamList() {
 }
 
 function buildHtmlPage() {
-    fs.readFile("./templates/main.html", function (err, data) {
-        fs.writeFileSync("./output/teamPage.html", data, function (err) {
-            if (err) throw err;
-            console.log("Base page generated!");
-        })
-        fs.appendFileSync("./output/teamPage.html", "</div></main></body></html>", function (err) {
-            if (err) throw err;
-            console.log("Page tags closed!");
-        })
-        for (member of teamList) {
-            console.log(member.getRole());
-            // if (member.getRole() == "Manager") {
-            //     return;
-            // }
-        }
+    let newFile = fs.readFileSync("./templates/main.html")
+    fs.writeFileSync("./output/teamPage.html", newFile, function (err) {
         if (err) throw err;
+    })
+
+    console.log("Base page generated!");
+
+    for (member of teamList) {
+        if (member.getRole() == "Manager") {
+            buildHtmlCard("manager", member.getName(), member.getId(), member.getEmail(), member.getOfficeNumber());
+        } else if (member.getRole() == "Engineer") {
+            buildHtmlCard("engineer", member.getName(), member.getId(), member.getEmail(), member.getOfficeNumber());
+        } else if (member.getRole() == "Intern") {
+            buildHtmlCard("intern", member.getName(), member.getId(), member.getEmail(), member.getOfficeNumber());
+        }
     }
-    )
+    // fs.appendFileSync("./output/teamPage.html", "</div></main></body></html>", function (err) {
+    //     if (err) throw err;
+    // });
+
+}
+
+function buildHtmlCard(memberType, name, id, email, propertyValue) {
+    let data = fs.readFileSync(`./templates/${memberType}.html`, 'utf8')
+    data = data.replace("nameHere", name);
+    data = data.replace("idHere", `ID: ${id}`);
+    data = data.replace("emailHere", `Email: ${email}`);
+    data = data.replace("propertyHere", propertyValue);
+    fs.appendFileSync("./output/teamPage.html", data, err => { if (err) throw err; })
+    console.log("Card appended");
 }
 
 function init() {
