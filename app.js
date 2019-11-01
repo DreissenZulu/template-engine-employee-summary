@@ -133,11 +133,11 @@ function buildHtmlPage() {
 
     for (member of teamList) {
         if (member.getRole() == "Manager") {
-            buildHtmlCard("manager", member.getName(), member.getId(), member.getEmail(), member.getOfficeNumber());
+            buildHtmlCard("manager", member.getName(), member.getId(), member.getEmail(), "Office: " + member.getOfficeNumber());
         } else if (member.getRole() == "Engineer") {
-            buildHtmlCard("engineer", member.getName(), member.getId(), member.getEmail(), member.getGithub());
+            buildHtmlCard("engineer", member.getName(), member.getId(), member.getEmail(), "Github: " + member.getGithub());
         } else if (member.getRole() == "Intern") {
-            buildHtmlCard("intern", member.getName(), member.getId(), member.getEmail(), member.getSchool());
+            buildHtmlCard("intern", member.getName(), member.getId(), member.getEmail(), "School: " + member.getSchool());
         }
     }
     fs.appendFileSync("./output/teamPage.html", "</div></main></body></html>", function (err) {
