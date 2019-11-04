@@ -38,6 +38,12 @@ const managerQuestions = [
             }
             return true;
         }
+    },
+    {
+        type: "list",
+        name: "hasTeam",
+        message: "Do you have any team members?",
+        choices: ["Yes", "No"]
     }
 ]
 
@@ -162,7 +168,11 @@ function init() {
         let teamManager = new Manager(managerInfo.name, 1, managerInfo.email, managerInfo.officeNum);
         teamList.push(teamManager);
         console.log(" ");
-        buildTeamList();
+        if (managerInfo.hasTeam === "Yes") {
+            buildTeamList();    
+        } else {
+            buildHtmlPage();
+        }
     })
 }
 
